@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const a = require("daisyui/src/theming/themes")["dark"];
 export default {
   content: ["./index.html", "./src/**/*.{vue,ts}"],
   theme: {

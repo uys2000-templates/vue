@@ -11,9 +11,4 @@ router.beforeEach((to, from) => {
   document.title = `${to.meta.title} | Mehmet Uysal`;
 });
 
-router.beforeResolve((to, from) => {
-  const authStore = useAuthStore();
-  if (!authStore.isAuthenticated && to.meta.authReqired)
-    return { name: "AppLoader" };
-});
 export default router;

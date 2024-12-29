@@ -9,35 +9,27 @@ export const routes = [
     children: [
       {
         path: "",
-        name: "HomeView",
-        component: () => import("../views/HomeView.vue"),
-        meta: { title: "Home" },
+        name: "AgendaView",
+        component: () => import("../views/AgendaView.vue"),
+        meta: { title: "Agenda" },
+      },
+      {
+        path: "notes",
+        name: "NotesView",
+        component: () => import("../views/NotesView.vue"),
+        meta: { title: "Notes" },
+      },
+      {
+        path: "challenges",
+        name: "ChallengesView",
+        component: () => import("../views/ChallengesView.vue"),
+        meta: { title: "Challenges" },
       },
       {
         path: "about",
         name: "AboutView",
         component: () => import("../views/AboutView.vue"),
         meta: { title: "About" },
-      },
-    ],
-  },
-  {
-    path: "/app",
-    name: "AppLayout",
-    component: () => import("../layouts/AppLayout.vue"),
-    meta: { title: "App" },
-    children: [
-      {
-        path: "",
-        name: "AppView",
-        component: () => import("../views/AppView.vue"),
-        meta: { title: "App Home", authReqired: true },
-      },
-      {
-        path: "",
-        name: "AppLoader",
-        component: () => import("../views/AppLoader.vue"),
-        meta: { title: "App Loader" },
       },
     ],
   },

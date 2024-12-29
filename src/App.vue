@@ -1,16 +1,24 @@
 <template>
   <router-view v-slot="{ Component }">
     <transition name="layout">
-      <component :is="Component" />
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
     </transition>
   </router-view>
 </template>
 
 <script lang="ts">
+import { KeepAlive } from 'vue';
 import { RouterView } from 'vue-router'
 export default {
   components: {
-    RouterView
+    RouterView,
+    KeepAlive,
+  },
+  beforeMount() {
+    //window.lang = "tr-TR"
+    window.lang = "en-US"
   }
 }
 </script>
