@@ -1,6 +1,6 @@
 <template>
   <span class="w-full flex-shrink overflow-y-hidden overflow-x-auto h-6 flex flex-row-reverse gap-1">
-    <span class="inline-block w-5 h-5 rounded-full flex-shrink-0" :style="`background-color: ${value};`"
+    <span class="inline-block w-5 h-5 rounded-full flex-shrink-0 cursor-pointer" :style="`background-color: ${value};`"
       @click="() => show = true"></span>
     <template v-if="show">
       <template v-for="color in colors">

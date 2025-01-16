@@ -1,7 +1,7 @@
 <template>
   <div class="collapse">
     <input type="checkbox" :checked="checked" />
-    <div class="collapse-title">
+    <div class="collapse-title p-4">
       <slot name="title" />
     </div>
     <div class="collapse-content">

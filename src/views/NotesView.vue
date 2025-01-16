@@ -1,42 +1,100 @@
 <template>
-  <div class="flex flex-col gap-2 p-4 relative h-full w-full">
-    <div
-      class="flex flex-row flex-nowrap items-center content-center p-4 bg-neutral text-neutral-content rounded-box gap-4"
-      @click="showAddAgenda">
-      <span class="material-symbols-outlined">add_circle</span>
-      <span>New Note</span>
-    </div>
-    <!-- Mevcut veriyi asagi ekle kullanici asagi inmeye calismasin -->
-    <Note v-model:model-visible="visible" v-model:model-value="newNote" />
-    <label class="swap fixed bottom-4 right-3 text-center bg-primary p-1 rounded-box">
-      <input type="checkbox" />
+  <EntryWrapper>
+    <EntryList>
+      <NewEntry title="New Note" @click="add" />
+      <template v-for="item, index in isToday ? entryStore.todayNotes : entryStore.allNotes">
+        <Entry :value="item" :index="index" @update="update" @remove="remove" />
+      </template>
+    </EntryList>
+    <EntryPopup v-model:model-visible="visible" v-model:color-value="itemTMP.color" title="New Agenda">
+      <NoteForm v-model="itemTMP" :update="!!item" @submit="onSubmit" />
+    </EntryPopup>
+    <label class="swap btn btn-neutral absolute bottom-4 right-4">
+      <input type="checkbox" v-model="isToday" />
       <div class="swap-on">Today</div>
       <div class="swap-off">All</div>
     </label>
-  </div>
+  </EntryWrapper>
 </template>
 <script lang="ts">
-import Note from '@/components/note/Note.vue';
+import Entry from '@/components/entries/Entry.vue';
+import EntryList from '@/components/entries/EntryList.vue';
+import EntryPopup from '@/components/entries/EntryPopup.vue';
+import EntryWrapper from '@/components/entries/EntryWrapper.vue';
+import NewEntry from '@/components/entries/NewEntry.vue';
+import NoteForm from '@/components/entries/NoteForm.vue';
+import { deleteEntry, writeEntry } from '@/services/app/entryService';
+import { useEntryStore } from '@/stores/entry';
 import type { UNote } from '@/types/note';
 
 export default {
   components: {
-    Note
+    EntryWrapper,
+    EntryList,
+    NewEntry,
+    Entry,
+    EntryPopup,
+    NoteForm
   },
   data() {
     return {
+      isToday: true,
       visible: false,
-      newNote: {
-        color: "#ffb8b8",
-        title: "",
-        notes: ""
-      } as UNote
+      entryStore: useEntryStore(),
+      item: this.getItem() as UNote | null,
+      itemTMP: this.getItem(),
     }
   },
   methods: {
-    showAddAgenda() {
+    add() {
+      this.item = null
+      this.itemTMP = this.getItem()
       this.visible = true;
-    }
-  }
+    },
+    update(item: UNote, index: number) {
+      this.item = item
+      this.itemTMP = { ...item }
+      this.visible = true;
+    },
+    remove(item: UNote, index: number) {
+      this.item = item
+      this.deleteOldEntryIfExsist()
+      this.removeFromListIfExsist()
+    },
+    getItem() {
+      return {
+        timestamp: Date.now(),
+        color: "#c56cf0",
+        title: "",
+        content: "",
+      } as UNote
+    },
+    async deleteOldEntryIfExsist() {
+      if (this.item) await deleteEntry('note', this.item).catch(() => "")
+    },
+    saveNewEntry() {
+      writeEntry('note', this.itemTMP)
+    },
+    removeFromListIfExsist() {
+      if (this.item) {
+        const day = new Date(this.item.timestamp).toDateString()
+        const itemList = this.entryStore.notes[day];
+        if (itemList) {
+          const filter = (i: UNote) => i.timestamp != this.item?.timestamp
+          this.entryStore.notes[day] = itemList.filter(filter);
+        }
+      }
+    },
+    addToList() {
+      this.entryStore.addNote(this.itemTMP)
+    },
+    async onSubmit() {
+      await this.deleteOldEntryIfExsist()
+      this.saveNewEntry();
+      this.removeFromListIfExsist()
+      this.addToList()
+      this.visible = false;
+    },
+  },
 }
 </script>

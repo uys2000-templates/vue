@@ -301,6 +301,11 @@
   dependencies:
     tslib "^2.1.0"
 
+"@capacitor/filesystem@^6.0.2":
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/filesystem/-/filesystem-6.0.2.tgz#70bef48fbd89304c498c7d2b94f062e7787f9636"
+  integrity sha512-OUDjGPljC3/q6wFnCCBUgElfZgAaSaoKeh0ij2eoDygn5KVXta+5CiJ7H7o2/ziTW6WOyvP0++EC3DT0TzR23A==
+
 "@esbuild/aix-ppc64@0.21.5":
   version "0.21.5"
   resolved "https://registry.yarnpkg.com/@esbuild/aix-ppc64/-/aix-ppc64-0.21.5.tgz#c7184a326533fcdf1b8ee0733e21c713b975575f"
@@ -1183,10 +1188,10 @@ culori@^3:
   resolved "https://registry.yarnpkg.com/culori/-/culori-3.3.0.tgz#e33530adbd124d53bd6550394397e695eaaed739"
   integrity sha512-pHJg+jbuFsCjz9iclQBqyL3B2HLCBF71BwVNujUYEvCeQMvV97R59MNK3R2+jgJ3a1fcZgI9B3vYgz8lzr/BFQ==
 
-daisyui@^4.12.10:
-  version "4.12.14"
-  resolved "https://registry.yarnpkg.com/daisyui/-/daisyui-4.12.14.tgz#c5c2061f97769aa3b56ab62e5bd147ee3979c90f"
-  integrity sha512-hA27cdBasdwd4/iEjn+aidoCrRroDuo3G5W9NDKaVCJI437Mm/3eSL/2u7MkZ0pt8a+TrYF3aT2pFVemTS3how==
+daisyui@^4.12.23:
+  version "4.12.23"
+  resolved "https://registry.yarnpkg.com/daisyui/-/daisyui-4.12.23.tgz#3fc370ed4c226c9c811d223da1ba6a56ac16d777"
+  integrity sha512-EM38duvxutJ5PD65lO/AFMpcw+9qEy6XAZrTpzp7WyaPeO/l+F/Qiq0ECHHmFNcFXh5aVoALY4MGrrxtCiaQCQ==
   dependencies:
     css-selector-tokenizer "^0.8"
     culori "^3"
@@ -2449,6 +2454,10 @@ typescript@~5.4.0:
   version "5.4.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.4.5.tgz#42ccef2c571fdbd0f6718b1d1f5e6e5ef006f611"
   integrity sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==
+
+"u-logger@https://github.com/uys2000-projects/ULogger":
+  version "2.0.0"
+  resolved "https://github.com/uys2000-projects/ULogger#85fe0653292fe1fada336ea8402592553901b5e9"
 
 undici-types@~6.19.2, undici-types@~6.19.8:
   version "6.19.8"

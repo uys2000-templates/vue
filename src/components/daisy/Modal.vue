@@ -1,17 +1,17 @@
 <template>
   <Transition name="modal">
     <template v-if="value">
-      <div class="absolute w-full h-full top-0 left-0 overflow-hidden">
+      <div class="absolute w-full h-full bottom-0 left-0 overflow-hidden">
         <div class="relative w-full h-full bg-base-300 overflow-hidden flex flex-col">
-          <div class="p-4 pb-2 flex flex-nowrap items-center content-center justify-between gap-2">
+          <div class="p-4 pb-2 flex flex-nowrap items-center content-center justify-between gap-2 flex-shrink-0">
             <template v-if="title"><span class="shrink-0 text-nowrap">{{ title }}</span></template>
             <template v-else>
               <slot name="title" />
             </template>
-            <span class="material-symbols-outlined flex justify-center items-center pt-px shrink-0"
+            <span class="material-symbols-outlined flex justify-center items-center pt-px shrink-0 cursor-pointer"
               @click="close">arrow_drop_down_circle</span>
           </div>
-          <div class="content p-2 overflow-auto h-full flex-shrink">
+          <div class="content p-2 overflow-auto h-auto flex-shrink">
             <slot />
           </div>
         </div>

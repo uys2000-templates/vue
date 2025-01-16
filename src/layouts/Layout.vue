@@ -1,16 +1,15 @@
 <template>
-  <div
-    class="h-screen max-h-screen w-full bg-base-300 text-base-content relative flex flex-col flex-nowrap overflow-hidden">
+  <div class="max-h-screen h-screen w-screen bg-base-300 text-base-content flex flex-col flex-nowrap overflow-hidden">
     <input id="drawer" type="checkbox" class="drawer-toggle" />
     <TheHeader />
-    <div class="h-full w-full relative flex flex-col flex-shrink">
-      <div class="calendar">
+    <div class="h-full w-full flex flex-col flex-nowrap overflow-hidden flex-shrink">
+      <div class="calendar w-full flex-shrink-0">
         <UCalendar v-model:date="calendarStore.date" />
       </div>
-      <div role="tablist" class="tabs tabs-bordered pt-4">
-        <RouterLink :to="{ name: 'AgendaView' }" role="tab" class="tab"
+      <div role="tablist" class="tabs tabs-bordered w-full flex-shrink-0">
+        <RouterLink :to="{ name: 'AgendaView' }" role="tab" class="tab [--tab-bg:yellow] [--tab-border-color:orange]"
           :class="{ 'tab-active': $route.name == 'AgendaView' }">Agenda</RouterLink>
-        <RouterLink :to="{ name: 'NotesView' }" role="tab" class="tab"
+        <RouterLink :to="{ name: 'NotesView' }" role="tab" class="tab [--tab-bg:yellow] [--tab-border-color:orange]"
           :class="{ 'tab-active': $route.name == 'NotesView' }">
           Notes</RouterLink>
         <!--
@@ -18,7 +17,7 @@
             :class="{ 'tab-active': $route.name == 'ChallengesView' }">Challenges</RouterLink>
             -->
       </div>
-      <div class="content h-full flex-shrink relative w-full">
+      <div class="content h-full w-full flex-shrink flex flex-col flex-nowrap overflow-hidden">
         <router-view v-slot="{ Component, route }">
           <KeepAlive>
             <transition name="page">

@@ -24,6 +24,12 @@
                 'u-cbwwd-next': day.isNext,
               }" @click="() => selectDay(day)">
                 {{ day.date.getDate() }}
+                <div class="u-cbwwd-items">
+                  <template v-for="item in items[day.date.toDateString()]">
+                    <div class="u-cbwwdi-item" :style="`background-color: ${item.color};`">
+                    </div>
+                  </template>
+                </div>
               </div>
             </template>
           </div>
@@ -33,6 +39,7 @@
   </div>
 </template>
 <script lang="ts">
+import { useEntryStore } from '@/stores/entry';
 import { UCalendar, UCDay } from '@/types/ucalendar';
 
 export default {
@@ -46,6 +53,7 @@ export default {
   data() {
     return {
       uCalendar: new UCalendar(this.date),
+      entryStore: useEntryStore()
     }
   },
   computed: {
@@ -56,10 +64,20 @@ export default {
       set(value: Date) {
         this.$emit("update:date", value)
       }
+    },
+    items() {
+      if (this.$route.name == 'AgendaView') {
+        return this.entryStore.agendas
+      }
+      if (this.$route.name == 'NotesView') {
+        return this.entryStore.notes
+      }
+      return {}
     }
   },
   methods: {
     selectDay(day: UCDay) {
+      this.entryStore.day = day.date.toDateString()
       this.dateValue = day.date
       this.uCalendar.selected = day.date
       if (day.isLast || day.isNext) {
@@ -122,8 +140,16 @@ export default {
 }
 
 .u-calendar .u-c-body .u-cb-weeks .u-cbw-week .u-cbww-day {
-  @apply w-8 h-8 flex justify-center items-center cursor-pointer;
-  @apply rounded-full border m-auto transition-colors duration-300;
+  @apply w-8 h-8 flex justify-center items-center cursor-pointer relative;
+  @apply rounded-full border m-auto transition-colors duration-300 overflow-hidden;
+}
+
+.u-calendar .u-c-body .u-cb-weeks .u-cbw-week .u-cbww-day .u-cbwwd-items {
+  @apply absolute bottom-px left-0 w-full flex gap-px justify-center items-center;
+}
+
+.u-calendar .u-c-body .u-cb-weeks .u-cbw-week .u-cbww-day .u-cbwwd-items .u-cbwwdi-item {
+  @apply w-1 h-1 rounded-full;
 }
 
 .u-calendar .u-c-body .u-cb-weeks .u-cbw-week .u-cbww-day.u-cbwwd-last,
